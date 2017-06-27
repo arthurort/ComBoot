@@ -9,6 +9,7 @@
 			*/
 			function change_language(lang_iso)
 			{
+				document.cookie = '{COOKIE_NAME}_lang=' + lang_iso + '; path={COOKIE_PATH}';
 				document.forms['register'].change_lang.value = lang_iso;
 				document.forms['register'].submit();
 			}
@@ -17,7 +18,7 @@
 		</script>
 		<form method="post" action="{S_UCP_ACTION}" id="register">
 			<p class="rightside">
-				<label for="lang">{L_LANGUAGE}:</label><select name="lang" id="lang" onchange="change_language(this.value); return false;" title="{L_LANGUAGE}">{S_LANG_OPTIONS}</select>
+				<label for="lang">{L_LANGUAGE}{L_COLON}</label><select name="lang" id="lang" onchange="change_language(this.value); return false;" title="{L_LANGUAGE}">{S_LANG_OPTIONS}</select>
 				{S_HIDDEN_FIELDS}
 			</p>
 			{S_FORM_TOKEN}
@@ -27,10 +28,14 @@
 	<form method="post" action="{S_UCP_ACTION}" id="agreement">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">{SITENAME} - {L_REGISTRATION}</h3>
+				<h3 class="panel-title sitename-title">{SITENAME} - {L_REGISTRATION}</h3>
 			</div>
 			<div class="panel-body">
+				<!-- EVENT ucp_agreement_terms_before -->
 				<p><!-- IF S_SHOW_COPPA -->{L_COPPA_BIRTHDAY}<!-- ELSE -->{L_TERMS_OF_USE}<!-- ENDIF --></p>
+				<!-- EVENT ucp_agreement_terms_after -->
+			</div>
+			<div class="panel-footer">
 				<fieldset class="submit-buttons">
 					<!-- IF S_SHOW_COPPA -->
 						<strong><a href="{U_COPPA_NO}" class="btn btn-primary">{L_COPPA_NO}</a></strong>&nbsp; <a href="{U_COPPA_YES}" class="btn btn-danger">{L_COPPA_YES}</a>
@@ -47,7 +52,7 @@
 <!-- ELSEIF S_AGREEMENT -->
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">{SITENAME} - {AGREEMENT_TITLE}</h3>
+			<h3 class="panel-title sitename-title">{SITENAME} - {AGREEMENT_TITLE}</h3>
 		</div>
 		<div class="panel-body">
 			<p>{AGREEMENT_TEXT}</p>

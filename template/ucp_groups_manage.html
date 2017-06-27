@@ -6,7 +6,7 @@
 			<h3 class="panel-title" <!-- IF GROUP_COLOR --> style="color:#{GROUP_COLOR};"<!-- ENDIF -->>{L_USERGROUPS}<!-- IF GROUP_NAME --> :: {GROUP_NAME}<!-- ENDIF --></h3>
 		</div>
 		<div class="panel-body">
-			<p>{L_GROUPS_EXPLAIN}</p>
+			<div class="alert alert-info">{L_GROUPS_EXPLAIN}</div>
 			<hr class="panel-dash"/>
 			<!-- IF S_EDIT -->
 				<h3>{L_GROUP_DETAILS}</h3>
@@ -19,28 +19,28 @@
 				<fieldset>
 					<div class="form-horizontal">
 						<div class="form-group">
-							<label class="control-label col-md-4" for="group_name">{L_GROUP_NAME}:</label>
+							<label class="control-label col-md-4" for="group_name">{L_GROUP_NAME}{L_COLON}</label>
 							<div class="col-md-8">
 								<!-- IF S_SPECIAL_GROUP --><strong <!-- IF GROUP_COLOUR -->style="color: #{GROUP_COLOUR};"<!-- ENDIF -->><p class="form-control-static">{GROUP_NAME}</p></strong> <input name="group_name" type="hidden" value="{GROUP_INTERNAL_NAME}" />
 								<!-- ELSE --><input name="group_name" type="text" id="group_name" value="{GROUP_INTERNAL_NAME}" class="form-control" /><!-- ENDIF -->
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-md-4" for="group_desc">{L_GROUP_DESC}:</label>
+							<label class="control-label col-md-4" for="group_desc">{L_GROUP_DESC}{L_COLON}</label>
 							<div class="col-md-8">
 								<textarea id="group_desc" name="group_desc" rows="5" cols="45" class="form-control">{GROUP_DESC}</textarea>
-								<label class="checkbox-inline" for="desc_parse_bbcode"><input type="checkbox" class="radio" name="desc_parse_bbcode" id="desc_parse_bbcode"<!-- IF S_DESC_BBCODE_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_PARSE_BBCODE}</label>
-								<label class="checkbox-inline" for="desc_parse_smilies"><input type="checkbox" class="radio" name="desc_parse_smilies" id="desc_parse_smilies"<!-- IF S_DESC_SMILIES_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_PARSE_SMILIES}</label>
-								<label class="checkbox-inline" for="desc_parse_urls"><input type="checkbox" class="radio" name="desc_parse_urls" id="desc_parse_urls"<!-- IF S_DESC_URLS_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_PARSE_URLS}</label>
+								<label class="checkbox-inline" for="desc_parse_bbcode"><input type="checkbox" name="desc_parse_bbcode" id="desc_parse_bbcode"<!-- IF S_DESC_BBCODE_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_PARSE_BBCODE}</label>
+								<label class="checkbox-inline" for="desc_parse_smilies"><input type="checkbox" name="desc_parse_smilies" id="desc_parse_smilies"<!-- IF S_DESC_SMILIES_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_PARSE_SMILIES}</label>
+								<label class="checkbox-inline" for="desc_parse_urls"><input type="checkbox" name="desc_parse_urls" id="desc_parse_urls"<!-- IF S_DESC_URLS_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_PARSE_URLS}</label>
 							</div>
 						</div>
 						<!-- IF not S_SPECIAL_GROUP -->
 							<div class="form-group">
-								<label class="control-label col-md-4" for="group_type1">{L_GROUP_TYPE}:</label>
+								<label class="control-label col-md-4" for="group_type1">{L_GROUP_TYPE}{L_COLON}</label>
 								<div class="col-md-8">
-									<label class="radio-inline" for="group_type1"><input type="radio" name="group_type" id="group_type1" value="{GROUP_TYPE_FREE}"{GROUP_FREE} /> {L_GROUP_OPEN}</label> 
-									<label class="radio-inline" for="group_type2"><input type="radio" name="group_type" id="group_type2" value="{GROUP_TYPE_OPEN}"{GROUP_OPEN} /> {L_GROUP_REQUEST}</label> 
-									<label class="radio-inline" for="group_type3"><input type="radio" name="group_type" id="group_type3" value="{GROUP_TYPE_CLOSED}"{GROUP_CLOSED} /> {L_GROUP_CLOSED}</label> 
+									<label class="radio-inline" for="group_type1"><input type="radio" name="group_type" id="group_type1" value="{GROUP_TYPE_FREE}"{GROUP_FREE} /> {L_GROUP_OPEN}</label>
+									<label class="radio-inline" for="group_type2"><input type="radio" name="group_type" id="group_type2" value="{GROUP_TYPE_OPEN}"{GROUP_OPEN} /> {L_GROUP_REQUEST}</label>
+									<label class="radio-inline" for="group_type3"><input type="radio" name="group_type" id="group_type3" value="{GROUP_TYPE_CLOSED}"{GROUP_CLOSED} /> {L_GROUP_CLOSED}</label>
 									<label class="radio-inline" for="group_type4"><input type="radio" name="group_type" id="group_type4" value="{GROUP_TYPE_HIDDEN}"{GROUP_HIDDEN} /> {L_GROUP_HIDDEN}</label>
 									<span class="help-block">{L_GROUP_TYPE_EXPLAIN}</span>
 								</div>
@@ -55,18 +55,18 @@
 				<fieldset>
 					<div class="form-horizontal">
 						<div class="form-group">
-							<label class="control-label col-md-4" for="group_colour">{L_GROUP_COLOR}:</label>
+							<label class="control-label col-md-4" for="group_colour">{L_GROUP_COLOR}{L_COLON}</label>
 							<div class="col-md-8">
 								<input name="group_colour" type="hidden" id="group_colour" value="{GROUP_COLOUR}" />
 								<div class="input-group colour-picker" id="group_colour_component">
-									<input type="text" value="#{GROUP_COLOUR}" size="7" maxlength="7" class="form-control color-picker"/>
 									<span class="input-group-addon"><i></i></span>
+									<input type="text" value="#{GROUP_COLOUR}" size="6" maxlength="6" class="form-control color-picker"/>
 								</div>
 								<span class="help-block">{L_GROUP_COLOR_EXPLAIN}</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-md-4" for="group_rank">{L_GROUP_RANK}:</label>
+							<label class="control-label col-md-4" for="group_rank">{L_GROUP_RANK}{L_COLON}</label>
 							<div class="col-md-8">
 								<select name="group_rank" id="group_rank">{S_RANK_OPTIONS}</select>
 							</div>
@@ -161,14 +161,18 @@
 						</tbody>
 					</table>
 				</div>
-				<ul class="linklist">
-					<li class="leftside pagination">
-						<!-- IF PAGINATION --><a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{S_ON_PAGE}</a> <span>{PAGINATION}</span><!-- ELSE -->{S_ON_PAGE}<!-- ENDIF -->
-					</li>
-				</ul>
+				<!-- IF .pagination -->
+					<div class="row">
+						<div class="text-center col-md-12">
+							<div class="btn-group">
+								<!-- INCLUDE pagination.html -->
+							</div>
+						</div>
+					</div>
+				<!-- ENDIF -->
 				<hr class="dashed" />
 				<fieldset class="text-right">
-					<div class="btn-group">	
+					<div class="btn-group">
 						<a class="btn btn-success btn-sm" href="#" onclick="marklist('ucp', 'mark', true); return false;">{L_MARK_ALL}</a>
 						<a class="btn btn-warning btn-sm" href="#" onclick="marklist('ucp', 'mark', false); return false;">{L_UNMARK_ALL}</a>
 					</div>
@@ -181,15 +185,15 @@
 				<fieldset>
 					<div class="form-horizontal">
 						<div class="form-group">
-							<label class="control-label col-md-4" for="default0">{L_USER_GROUP_DEFAULT}:</label>
+							<label class="control-label col-md-4" for="default0">{L_USER_GROUP_DEFAULT}{L_COLON}</label>
 							<div class="col-md-8">
-								<label class="radio-inline" for="default1"><input type="radio" name="default" id="default1" value="1" /> {L_YES}</label> 
+								<label class="radio-inline" for="default1"><input type="radio" name="default" id="default1" value="1" /> {L_YES}</label>
 								<label class="radio-inline" for="default0"><input type="radio" name="default" id="default0" value="0" checked="checked" /> {L_NO}</label>
 								<span class="help-block">{L_USER_GROUP_DEFAULT_EXPLAIN}</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-md-4" for="usernames">{L_USERNAME}:</label>
+							<label class="control-label col-md-4" for="usernames">{L_USERNAME}{L_COLON}</label>
 							<div class="col-md-8">
 								<textarea name="usernames" id="usernames" rows="3" cols="30" class="form-control"></textarea>
 								<div class="spacer"></div>
@@ -233,12 +237,7 @@
 		<div class="panel-footer">
 			<fieldset class="submit-buttons">
 				{S_HIDDEN_FIELDS}
-				<!-- IF S_DISPLAY_GALLERY --><input type="submit" name="display_gallery" value="{L_DISPLAY_GALLERY}" class="btn btn-success" /><!-- ENDIF -->
-				<!-- IF S_IN_AVATAR_GALLERY -->
-					<input type="submit" name="cancel" value="{L_CANCEL}" class="btn btn-default" />
-				<!-- ELSE -->
-					<input type="reset" value="{L_RESET}" name="reset" class="btn btn-danger" />
-				<!-- ENDIF -->
+				<input type="reset" value="{L_RESET}" name="reset" class="btn btn-danger" />
 				<input type="submit" name="update" value="{L_SUBMIT}" class="btn btn-success" />
 				{S_FORM_TOKEN}
 			</fieldset>

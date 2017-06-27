@@ -2,7 +2,7 @@
 	<!-- IF S_HAS_POLL_OPTIONS -->
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">{L_PREVIEW}: {POLL_QUESTION}</h3>
+				<h3 class="panel-title">{L_PREVIEW}{L_COLON} {POLL_QUESTION}</h3>
 			</div>
 			<div class="panel-body">
 				<p class="author"><!-- IF L_POLL_LENGTH -->{L_POLL_LENGTH}<br /><!-- ENDIF -->{L_MAX_VOTES}</p>
@@ -18,9 +18,11 @@
 		</div>
 	<!-- ENDIF -->
 
+	<!-- EVENT posting_preview_poll_after -->
+
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">{L_PREVIEW}<span ng-show="subject" class="subject">{{"&#58; " + subject}}</span></h3>
+			<h3 class="panel-title">{L_PREVIEW}</h3>
 		</div>
 		<div class="panel-body">
 			<p>{PREVIEW_MESSAGE}</p>
@@ -37,5 +39,3 @@
 		<!-- IF PREVIEW_SIGNATURE --><div class="signature">{PREVIEW_SIGNATURE}</div><!-- ENDIF -->
 	</div>
 </div>
-
-<hr class="dashed" />

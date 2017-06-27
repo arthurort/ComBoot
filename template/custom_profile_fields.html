@@ -14,9 +14,17 @@
 
 <!-- BEGIN bool -->
 <!-- IF bool.FIELD_LENGTH eq 1 -->
-	<!-- BEGIN options --><div class="radio-inline"><label for="{bool.FIELD_IDENT}_{bool.options.OPTION_ID}"><input type="radio" name="{bool.FIELD_IDENT}" id="{bool.FIELD_IDENT}_{bool.options.OPTION_ID}" value="{bool.options.OPTION_ID}"{bool.options.CHECKED} /> {bool.options.VALUE}</label></div><!-- END options -->
+	<!-- BEGIN options -->
+		<label for="{bool.FIELD_IDENT}_{bool.options.OPTION_ID}" class="radio-inline">
+			<input type="radio" name="{bool.FIELD_IDENT}" id="{bool.FIELD_IDENT}_{bool.options.OPTION_ID}" value="{bool.options.OPTION_ID}"{bool.options.CHECKED} /> {bool.options.VALUE}
+		</label>
+	<!-- END options -->
 <!-- ELSE -->
-	<div class="checkbox"><input type="checkbox" class="no-margin-left" name="{bool.FIELD_IDENT}" id="{bool.FIELD_IDENT}"<!-- IF bool.FIELD_VALUE --> checked="checked"<!-- ENDIF --> /></div>
+	<div class="checkbox">
+		<label for="{bool.FIELD_IDENT}">
+			<input type="checkbox" class="no-margin-left" name="{bool.FIELD_IDENT}" id="{bool.FIELD_IDENT}"<!-- IF bool.FIELD_VALUE --> checked="checked"<!-- ENDIF --> />
+		</label>
+	</div>
 <!-- ENDIF -->
 <!-- END bool -->
 
@@ -25,7 +33,7 @@
 <!-- END int -->
 
 <!-- BEGIN date -->
-<label for="{date.FIELD_IDENT}_day">{L_DAY}: <select name="{date.FIELD_IDENT}_day" id="{date.FIELD_IDENT}_day">{date.S_DAY_OPTIONS}</select></label> 
-<label for="{date.FIELD_IDENT}_month">{L_MONTH}: <select name="{date.FIELD_IDENT}_month" id="{date.FIELD_IDENT}_month">{date.S_MONTH_OPTIONS}</select></label> 
+<label for="{date.FIELD_IDENT}_day">{L_DAY}: <select name="{date.FIELD_IDENT}_day" id="{date.FIELD_IDENT}_day">{date.S_DAY_OPTIONS}</select></label>
+<label for="{date.FIELD_IDENT}_month">{L_MONTH}: <select name="{date.FIELD_IDENT}_month" id="{date.FIELD_IDENT}_month">{date.S_MONTH_OPTIONS}</select></label>
 <label for="{date.FIELD_IDENT}_year">{L_YEAR}: <select name="{date.FIELD_IDENT}_year" id="{date.FIELD_IDENT}_year">{date.S_YEAR_OPTIONS}</select></label>
 <!-- END date -->

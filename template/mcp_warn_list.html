@@ -8,25 +8,18 @@
 		<div class="panel-body">
 			<p>{L_WARNED_USERS_EXPLAIN}</p>
 			<!-- IF .user -->
-				<div class="text-center">
-					<div class="btn-group">
-						<!-- IF TOTAL_TOPICS --><span class="btn btn-default btn-sm disabled">{TOTAL_TOPICS}</span><!-- ENDIF -->
-						<!-- IF PAGE_NUMBER -->
-							<!-- IF PAGINATION -->
-								<a href="#" class="btn btn-default" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}"><span>{PAGE_NUMBER}</span></a>
-								<span class="btn btn-default btn-sm">{PAGINATION}</span>
+				<div class="row">
+					<div class="text-center col-md-12">
+						<div class="btn-group">
+							<a class="btn btn-default btn-sm disabled">{TOTAL_USERS}</span>
+							<!-- IF .pagination -->
+								<!-- INCLUDE pagination.html -->
 							<!-- ELSE -->
-								<span class="btn btn-default btn-sm disabled">{PAGE_NUMBER}</span>
+								<a class="btn btn-default btn-sm disabled">{PAGE_NUMBER}</span>
 							<!-- ENDIF -->
-						<!-- ENDIF -->
+						</div>
 					</div>
 				</div>
-				<div class="spacer"></div>
-				<fieldset class="display-options well well-sm text-center">
-					<label>{L_DISPLAY_POSTS}: {S_SELECT_SORT_DAYS}</label>
-					<label>{L_SORT_BY} {S_SELECT_SORT_KEY}</label><label>{S_SELECT_SORT_DIR}</label>
-					<input type="submit" name="sort" value="{L_GO}" class="btn btn-default" />
-				</fieldset>
 				<div class="table-responsive">
 					<table class="table table-striped table-bordered">
 						<thead>
@@ -49,8 +42,9 @@
 						</tbody>
 					</table>
 				</div>
+				<!-- INCLUDE display_options.html -->
 			<!-- ELSE -->
-				<p><strong>{L_WARNINGS_ZERO_TOTAL}</strong></p>
+				<p><strong>{L_NO_WARNINGS}</strong></p>
 			<!-- ENDIF -->
 			{S_FORM_TOKEN}
 		</div>

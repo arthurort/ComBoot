@@ -6,7 +6,7 @@
 			<h3 class="panel-title">{L_TITLE}</h3>
 		</div>
 		<div class="panel-body">
-			<p>{L_DRAFTS_EXPLAIN}</p>
+			<div class="alert alert-info">{L_DRAFTS_EXPLAIN}</div>
 			<!-- IF S_EDIT_DRAFT -->
 				<!-- INCLUDE posting_editor.html -->
 					</div>
@@ -33,13 +33,17 @@
 									<tr>
 										<td>
 											<a class="topictitle" href="{draftrow.U_VIEW_EDIT}">{draftrow.DRAFT_SUBJECT}</a><br />
-											<!-- IF draftrow.S_LINK_TOPIC -->{L_TOPIC}: <a href="{draftrow.U_VIEW}">{draftrow.TITLE}</a>
-											<!-- ELSEIF draftrow.S_LINK_FORUM -->{L_FORUM}: <a href="{draftrow.U_VIEW}">{draftrow.TITLE}</a>
+											<!-- IF draftrow.S_LINK_TOPIC -->{L_TOPIC}{L_COLON} <a href="{draftrow.U_VIEW}">{draftrow.TITLE}</a>
+											<!-- ELSEIF draftrow.S_LINK_FORUM -->{L_FORUM}{L_COLON} <a href="{draftrow.U_VIEW}">{draftrow.TITLE}</a>
 											<!-- ELSEIF S_PRIVMSGS -->
 											<!-- ELSE -->{L_NO_TOPIC_FORUM}<!-- ENDIF -->
+											<div class="visible-xs-block">
+												{L_SAVE_DATE}{L_COLON} <strong>{draftrow.DATE}</strong><br />
+												<!-- IF draftrow.U_INSERT --><a href="{draftrow.U_INSERT}">{L_LOAD_DRAFT}</a> &bull; <!-- ENDIF --><a href="{draftrow.U_VIEW_EDIT}">{L_VIEW_EDIT}</a>
+											</div>
 										</td>
-										<td><span>{draftrow.DATE}<br /><!-- IF draftrow.U_INSERT --><a href="{draftrow.U_INSERT}">{L_LOAD_DRAFT}</a> <!-- ENDIF --><a href="{draftrow.U_VIEW_EDIT}">{L_VIEW_EDIT}</a></span></td>
-										<td class="mark"><center><input type="checkbox" name="d[{draftrow.DRAFT_ID}]" id="d{draftrow.DRAFT_ID}" /></center></td>
+										<td><span>{draftrow.DATE}<br /><!-- IF draftrow.U_INSERT --><a href="{draftrow.U_INSERT}" class="btn btn-success btn-xs">{L_LOAD_DRAFT}</a> <!-- ENDIF --><a href="{draftrow.U_VIEW_EDIT}" class="btn btn-warning btn-xs">{L_VIEW_EDIT}</a></span></td>
+										<td class="marking"><input type="checkbox" name="d[{draftrow.DRAFT_ID}]" id="d{draftrow.DRAFT_ID}" /></td>
 									</tr>
 								<!-- END draftrow -->
 							</tbody>

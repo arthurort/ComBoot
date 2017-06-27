@@ -1,23 +1,38 @@
 <div class="panel panel-info">
 	<div class="panel-heading">
-		<h3 class="panel-title"><i class="fa fa-sign-in"></i> {L_LOGIN_LOGOUT}</h3>
-	</div>	
+		<h3 class="panel-title"><i class="fa fa-user fa-fw" aria-hidden="true"></i> {L_LOGIN_LOGOUT}</h3>
+	</div>
 	<div class="panel-body">
-		<form method="post" action="{S_LOGIN_ACTION}" class="form-inline login" name="loginform">
+		<form method="post" action="{S_LOGIN_ACTION}" class="form-inline" name="loginform">
 			<div class="row mobile-fix">
-				<div class="col-md-4">
-					<div class="input-group">
-						<input type="text" placeholder="{L_USERNAME}" name="username" id="username" size="10" class="form-control" title="{L_USERNAME}" style="width: 117px;"/>	
-						<input type="password" placeholder="{L_PASSWORD}" name="password" id="password" size="10" class="form-control" title="{L_PASSWORD}" style="width: 117px;"/>
-						<span class="input-group-btn">
-							{S_LOGIN_REDIRECT}
-							<input type="submit" name="login" value="{L_LOGIN}" class="btn btn-primary" />
-						</span>	
-					</div>
-				</div>
-				<div class="col-md-2">
+				<div class="col-xs-6">
 					<div class="form-group">
-						<a href="{U_REGISTER}" class="btn btn-primary btn-labeled "><span class="btn-label"><i class="glyphicon glyphicon glyphicon-user"></i></span>{L_REGISTER}</a>
+						<input type="text" placeholder="{L_USERNAME}" tabindex="1" name="username" size="10" class="form-control" title="{L_USERNAME}"/>
+					</div>
+					<div class="form-group">
+						<input type="password" placeholder="{L_PASSWORD}" tabindex="2" name="password" size="10" class="form-control" title="{L_PASSWORD}" autocomplete="off"/>
+					</div>
+					<div class="form-group">
+						{S_LOGIN_REDIRECT}
+						<input type="submit" tabindex="5" name="login" value="{L_LOGIN}" class="btn btn-primary btn-block" />
+					</div>
+					<!-- IF U_SEND_PASSWORD -->
+						<br/> <a href="{U_SEND_PASSWORD}">{L_FORGOT_PASS}</a>
+					<!-- ENDIF -->
+					<!-- IF S_AUTOLOGIN_ENABLED -->
+						<span class="responsive-hide">|</span>
+						<div class="checkbox">
+							<label for="autologin"><input type="checkbox" tabindex="4" name="autologin" id="autologin"/> {L_LOG_ME_IN}</label>
+						</div>
+					<!-- ENDIF -->
+				</div>
+				<div class="col-xs-6">
+					<div class="form-group">
+						<!-- IF S_REGISTER_ENABLED -->
+							<a href="{U_REGISTER}" class="btn btn-primary btn-labeled"><span class="btn-label"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>{L_REGISTER}</a>
+						<!-- ELSE -->
+							<a class="btn btn-primary btn-labeled disabled"><span class="btn-label"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>{L_REGISTER}</a>
+						<!-- ENDIF -->
 					</div>
 				</div>
 			</div>

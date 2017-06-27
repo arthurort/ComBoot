@@ -1,255 +1,245 @@
-/*
- * Version: 1.0
- */
+autosize($('#message'));
 
-$(function () {
-    $('.button-checkbox').each(function () {
-
-        // Settings
-        var $widget = $(this),
-            $button = $widget.find('button'),
-            $checkbox = $widget.find('input:checkbox'),
-            color = $button.data('color'),
-            settings = {
-                on: {
-                    icon: 'glyphicon glyphicon-check'
-                },
-                off: {
-                    icon: 'glyphicon glyphicon-unchecked'
-                }
-            };
-
-        // Event Handlers
-        $button.on('click', function () {
-            $checkbox.prop('checked', !$checkbox.is(':checked'));
-            $checkbox.triggerHandler('change');
-            updateDisplay();
-        });
-        $checkbox.on('change', function () {
-            updateDisplay();
-        });
-
-        // Actions
-        function updateDisplay() {
-            var isChecked = $checkbox.is(':checked');
-
-            // Set the button's state
-            $button.data('state', (isChecked) ? "on" : "off");
-
-            // Set the button's icon
-            $button.find('.state-icon')
-                .removeClass()
-                .addClass('state-icon ' + settings[$button.data('state')].icon);
-
-            // Update the button's color
-            if (isChecked) {
-                $button
-                    .removeClass('btn-default')
-                    .addClass('btn-' + color + ' active');
-            }
-            else {
-                $button
-                    .removeClass('btn-' + color + ' active')
-                    .addClass('btn-default');
-            }
-        }
-
-        // Initialization
-        function init() {
-
-            updateDisplay();
-
-            // Inject the icon if applicable
-            if ($button.find('.state-icon').length == 0) {
-                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
-            }
-        }
-        init();
-    });
+$(document).on('pjax:send', function() {
+	Pace.restart({
+		elements: {
+			selectors: ['#wrap']
+		}
+	});
+	$('.tooltip').tooltip('hide');
 });
 
-$(function () {
-    $('.list-group.checked-list-box .list-group-item').each(function () {
-        
-        // Settings
-        var $widget = $(this),
-            $checkbox = $('<input type="checkbox" class="hidden" />'),
-            color = ($widget.data('color') ? $widget.data('color') : "primary"),
-            style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
-            settings = {
-                on: {
-                    icon: 'glyphicon glyphicon-check'
-                },
-                off: {
-                    icon: 'glyphicon glyphicon-unchecked'
-                }
-            };
-            
-        $widget.css('cursor', 'pointer')
-        $widget.append($checkbox);
-
-        // Event Handlers
-        $widget.on('click', function () {
-            $checkbox.prop('checked', !$checkbox.is(':checked'));
-            $checkbox.triggerHandler('change');
-            updateDisplay();
-        });
-        $checkbox.on('change', function () {
-            updateDisplay();
-        });
-          
-
-        // Actions
-        function updateDisplay() {
-            var isChecked = $checkbox.is(':checked');
-
-            // Set the button's state
-            $widget.data('state', (isChecked) ? "on" : "off");
-
-            // Set the button's icon
-            $widget.find('.state-icon')
-                .removeClass()
-                .addClass('state-icon ' + settings[$widget.data('state')].icon);
-
-            // Update the button's color
-            if (isChecked) {
-                $widget.addClass(style + color + ' active');
-            } else {
-                $widget.removeClass(style + color + ' active');
-            }
-        }
-
-        // Initialization
-        function init() {
-            
-            if ($widget.data('checked') == true) {
-                $checkbox.prop('checked', !$checkbox.is(':checked'));
-            }
-            
-            updateDisplay();
-
-            // Inject the icon if applicable
-            if ($widget.find('.state-icon').length == 0) {
-                $widget.prepend('<span class="state-icon ' + settings[$widget.data('state')].icon + '"></span> ');
-            }
-        }
-        init();
-    });
+$(document).on('pjax:end', function() {
+	$('pre code:not(.hljs)').each(function(i, block) {
+		hljs.highlightBlock(block);
+	});
 });
 
-$(document).ready(function() {
-    $('#coypright #author-name').each(function () {
-        if ($(this).text() != 'Florian Gareis') {
-            $(this).css('color', 'red');
-        }
-    });
+$(document).on('ready pjax:success', function() {
+	var $primaryColor = $('.btn-primary').css('background-color'),
+		$footerColor = $('.panel-footer').css('background-color');
 
-    $('.btn').tooltip({container: 'body'});
+	hljs.initHighlighting();
 
-    $('#group_colour_component').on('changeColor', function (ev) {
-        $('input[name=group_colour]').val(ev.color.toHex().replace('#', ''));
-    });
+	// Color picker settings
+	$('.colour-picker').colorpicker({
+		format: 'hex',
+		align: 'left'
+	});
 
-    $("select").addClass("selectpicker");
-    $(".selectpicker").attr({"data-width": "auto"});
-    $(".selectpicker").selectpicker();
+	// Truncate title on mobile devices
+	$(window).on("resize", function() {
+		var $buttonWidth = 0;
+		$('.navbar-header button').each(function(){
+			$buttonWidth = $buttonWidth + $(this).outerWidth();
+		});
+		var $screenWidth = $('body').width(),
+			$navbarWidth = $('.navbar-header').width();
+		if($screenWidth < 767) {
+			$navbrandWidth = $navbarWidth - $buttonWidth - 2;
+		} else {
+			$navbrandWidth = 'auto';
+		}
+		$('.navbar-brand').css('width', $navbrandWidth);
+		if ($('#header-nav').outerHeight() > 80) {
+			$('#search-menu #search').hide();
+		} else {
+			$('#search-menu #search').show();
+		}
+	}).resize();
 
-    $('.top, .to-top, .top2').click(function(event){        
-        event.preventDefault();
-        $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
-    });
+	// Hide other open menus, when new menu is opened
+	$('.navbar-header button').on('click', function() {
+		$('.navbar .navbar-collapse.in').collapse('hide');
+	});
 
-    $('#site-logo img').addClass('img-responsive center-block');
+	// Fix abbc3 select picker issue
+	$('#abbc3_buttons .abbc3_select').addClass('no-selectpicker');
 
-    $('.progress .progress-bar').progressbar({
-        percent_format: function(percent) { return percent; }
-    });
+	// Fix to long tabs in MCP and UCP
+	$('#mcp-container .nav-justified li a, #ucp-container .nav-justified li a').each(function() {
+		if ($(this).height() > 20) {
+			$(this).parent().parent().removeClass('nav-justified');
+		}
+	});
 
-    $('.pagination-line a:not(.btn)').attr('class','btn btn-default btn-xs');
-    $('.topic-pagination a:not(.btn), .forum-pagination a:not(.btn)').attr('class','btn btn-default btn-sm');
-    if (!($('.topic-pagination a, .forum-pagination a').hasClass('no-btn'))){
-        $('.topic-pagination strong, .forum-pagination strong').attr('class','btn btn-primary btn-sm disabled');
-    };
-    $('.page-sep').remove();
+	// Selectpicker settings
+	$("select").not('.no-selectpicker').addClass("selectpicker");
+	$(".selectpicker").attr({"data-width": "auto"});
+	$(".selectpicker").selectpicker();
 
-    $('.pm-to a:not(.btn)').attr('class','btn btn-default btn-sm');
-    
-    $('.btn-fix a').addClass('btn btn-primary btn-sm');
+	// Change size of fontsize-picker
+	$('.fontsize-picker .btn-group').removeClass('form-control').addClass('btn-group-sm');
 
-    $('.btn-radio-group .btn-radio').click(function() {
-        $(this).parents('.btn-radio-group').find('.btn-radio.active').removeClass('active');
-        $(this).addClass('active');
-        return true;
-    });
-    
-    $('.btn-radio-group .btn-radio input:checked').each(function() {
-        $(this).parents('.btn-radio-group').find('.btn-radio.active').removeClass('active');
-        $(this).parent().addClass('active');
-    });
-    
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
-            $('#back-to-top').fadeIn();
-        } else {
-            $('#back-to-top').fadeOut();
-        }
-    });
-    // scroll body to 0px on click
-    $('#back-to-top').click(function () {
-        $('#back-to-top').tooltip('hide');
-        $('body,html').animate({
-            scrollTop: 0
-        }, 800);
-        return false;
-    });
-    $('#back-to-top').hover(function () {
-        $('#back-to-top').tooltip('show');
-    });
+	// Add theme color support for chrome browsers
+	$('head').append('<meta name="theme-color" content="' + $primaryColor + '">');
 
-    var $this = $('.content img');
-    var src = $this.attr('src');
-    $this.attr('data-lightbox', src);
+	// Progressbar settings
+	$('.progress .progress-bar').progressbar({
+		percent_format: function(percent) {
+			return percent;
+		}
+	});
 
-    if ($('#footer-nav .nav.fix-right-nav').length = 0){
-        $('#footer-nav ul.navbar-nav').after('<ul class="nav navbar-nav navbar-right fix-right-nav"><li><p class="navbar-text" id="corypright">Design: <a href="http://zoker.me/go/comboot" target="_blank">ComBoot</a> by <a href="http://www.florian-gareis.de" target="_blank" id="author-name">Florian Gareis</a></p></li></ul>');
-    }
+	// Fix attach outside quickresponse
+	$('#qr_postform #attach-tab').appendTo('#qr_ns_editor_div > .panel-body');
 
-    var dangercolor = $('.alert-danger').css('color');
-    $('#alert-area').css('border-color', dangercolor);
+	$('#copyright #author-name').each(function() {
+		if ($(this).text() != 'Florian Gareis') {
+			$(this).css('color', 'red');
+		}
+	});
 
-    $('.color-picker').colorpicker({
-        format: 'hex',
-        align: 'left'
-    });
+	// Enable tooltip on all buttons
+	$(".btn[data-toggle!='dropdown']:not([disabled]):not(.disabled)").attr({
+		'data-toggle': 'tooltip',
+		'data-container': 'body'
+	});
+	$('[data-toggle="tooltip"]').tooltip({container: 'body'});
 
-    // Update notification function
-    $.ajax('http://comboot.io/version.php').success(function (data) {
-        $version = data.latestVersion;
-        $message = data.message;
-        if ($version > '1.0') {
-            $('#update-notification').show();
-            $('#update-notification .version').text($version);
-        }
-    });
+	// Create mobile post toolbar
+	$('#posts > div, #message > div').each(function() {
+		var $post = $(this),
+			$btnGroups = $post.find('.post-content .btn-toolbar .btn-group'),
+			$btnGroupsAmount = $btnGroups.length;
+
+		$btnGroups.each(function(index) {
+			var $this = $(this),
+				$postbody = $this.closest('.post-body');
+			if (!$this.is(':empty')) {
+				$this.children('a').each(function() {
+					var $link = $(this),
+						$icon = $link.children('i').attr('class'),
+						$title = $link.data('original-title'),
+						$href = $link.attr('href'),
+						$item = '<li><a href="' + $href + '"><i class="' + $icon + '" aria-hidden="true"></i> ' + $title + '</a></li>';
+					$postbody.find('.btn-toolbar-mobile ul').append($item);
+				});
+				if (index !== $btnGroupsAmount - 1) {
+					$postbody.find('.btn-toolbar-mobile ul').append('<li role="separator" class="divider"></li>');
+				}
+				$postbody.find('.btn-toolbar-mobile').removeClass('hidden').addClass('visible-xs-block');
+			}
+		});
+	});
+
+	// Fix colorpicker
+	$('#group_colour_component').on('changeColor', function(ev) {
+		$('input[name=group_colour]').val(ev.color.toHex().replace('#', ''));
+	});
+
+	$('.posthilit').addClass('text-danger bg-danger');
+
+	// Fix time selector on register page
+	$('#register label[for="timezone"]').removeClass('form-label').addClass('control-label');
+
+	// Add responsive class to site logo
+	$('#site-logo img').attr('class', 'img-responsive center-block');
+
+	$('.pm-to a:not(.btn)').attr('class', 'btn btn-default btn-sm');
+
+	$('.btn-fix a').attr('class', 'btn btn-primary btn-sm');
+
+	$('.btn-radio-group .btn-radio').click(function() {
+		$(this).parents('.btn-radio-group').find('.btn-radio.active').removeClass('active');
+		$(this).addClass('active');
+		return true;
+	});
+
+	$('.btn-radio-group .btn-radio input:checked').each(function() {
+		$(this).parents('.btn-radio-group').find('.btn-radio.active').removeClass('active');
+		$(this).parent().addClass('active');
+	});
+
+	// Scroll to top
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > 100) {
+			$('#back-to-top').fadeIn();
+		} else {
+			$('#back-to-top').fadeOut();
+		}
+	});
+	$('#back-to-top, .to-top').click(function() {
+		$('#back-to-top').tooltip('hide');
+		$('body,html').animate({
+			scrollTop: 0
+		}, 800);
+		return false;
+	});
+	$('#back-to-top').hover(function() {
+		$('#back-to-top').tooltip('show');
+	});
+
+	// Set data-lightbox
+	$('.content img').each(function() {
+		var $this = $(this);
+		$this.attr('data-lightbox', $this.attr('src'));
+	});
+
+	if ($('#footer-nav .nav.navbar-right').length === 0) {
+		$('#footer-nav ul.navbar-nav').after('<ul class="nav navbar-nav navbar-right"><li><p class="navbar-text" id="copyright">Design: <a href="http://zoker.me/go/comboot" target="_blank">ComBoot</a> by <a href="http://www.florian-gareis.de" target="_blank" id="author-name">Florian Gareis</a></p></li></ul>');
+	}
+
+	var dangercolor = $('.alert-danger').css('color');
+	$('#alert-area').css('border-color', dangercolor);
+
+	// post review expander
+	$('.expander').click(function() {
+		if ($('.expander i').hasClass('fa-expand')) {
+			$('.expander i').removeClass('fa-expand').addClass('fa-compress');
+		} else {
+			$('.expander i').removeClass('fa-compress').addClass('fa-expand');
+		}
+	});
+
+	var $copy = $('#copyright').html();
+	$('#page-footer .copyright').prepend('<div class="visible-xs-block">' + $copy + '</div>');
+
+	// more beautiful quote
+	$('blockquote').css('border-left', '3px solid ' + $primaryColor)
+		.css('background-color', $footerColor);
+
+	// Live post title display
+	$('#subject').on('input', function() {
+		if ($('#subject').val().length > 0) {
+			$('#live-title').text(': ' + $(this).val());
+		} else {
+			$('#live-title').empty();
+		}
+		var value = $('#subject').val();
+		$('#live-title').text(value.length > 0 ? ': ' + value : '');
+	}).trigger('input');
 });
 
-$(document).on('click', '.panel-heading span.clickable', function(e){
-    var $this = $(this);
-    if(!$this.hasClass('panel-collapsed')) {
-        $this.parents('.panel-collapsible').find('.panel-body, .panel-footer').slideUp();
-        $this.addClass('panel-collapsed');
-        $this.find('i').removeClass('fa-chevron-up').addClass('fa-chevron-down');
-    } else {
-        $this.parents('.panel-collapsible').find('.panel-body, .panel-footer').slideDown();
-        $this.removeClass('panel-collapsed');
-        $this.find('i').removeClass('fa-chevron-down').addClass('fa-chevron-up');
-    }
+// Smoth scroll #links
+$(function() {
+	$('a[href*=#]:not([href=#]):not([data-toggle=tab]):not([data-type=char-select])').click(function() {
+		if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+			var target = $(this.hash);
+			target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+			if (target.length) {
+				$('html,body').animate({
+					scrollTop: target.offset().top
+				}, 1000);
+				return false;
+			}
+		}
+	});
 });
+
+$(document).on('click', '.panel-heading span.clickable', function(e) {
+	var $this = $(this);
+	if (!$this.hasClass('panel-collapsed')) {
+		$this.parents('.panel-collapsible').find('.panel-body, .panel-footer').slideUp();
+		$this.addClass('panel-collapsed');
+		$this.find('i').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+	} else {
+		$this.parents('.panel-collapsible').find('.panel-body, .panel-footer').slideDown();
+		$this.removeClass('panel-collapsed');
+		$this.find('i').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+	}
+});
+
 function isImageFile(fname) {
-    return fname.match(/\.(jpg|gif|bmp|jpeg|png)$/);
+	return fname.match(/\.(jpg|gif|bmp|jpeg|png)$/);
 }
-
-Prism.hooks.add('before-highlight', function(env) {
-    env.element.innerHTML = env.element.innerHTML.replace(/<br\s*\/?>/g,'\n');
-    env.code = env.element.textContent.replace(/^(?:\r?\n|\r)/,'');
-});

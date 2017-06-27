@@ -11,12 +11,12 @@
 				<!-- IF LOGIN_ERROR -->
 					<dl>
 						<dt>&nbsp;</dt>
-						<dd class="error">{LOGIN_ERROR}</dd>
+						<dd class="alert alert-danger">{LOGIN_ERROR}</dd>
 					</dl>
 				<!-- ENDIF -->
 				<dl>
-					<dt><label for="password">{L_PASSWORD}:</label></dt>
-					<dd><input class="form-control narrow" type="password" name="password" id="password" size="25" tabindex="1" /></dd>
+					<dt><label for="password">{L_PASSWORD}{L_COLON}</label></dt>
+					<dd><input class="form-control narrow" type="password" name="password" id="password" size="25" tabindex="1" autocomplete="off"/></dd>
 				</dl>
 				<dl>
 					<dt>&nbsp;</dt>

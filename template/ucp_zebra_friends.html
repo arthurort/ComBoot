@@ -6,12 +6,13 @@
 			<h3 class="panel-title">{L_TITLE}</h3>
 		</div>
 		<div class="panel-body">
-			<p>{L_FRIENDS_EXPLAIN}</p>
+			<div class="alert alert-info">{L_FRIENDS_EXPLAIN}</div>
 			<fieldset>
 				<div class="form-horizontal">
 					<!-- IF ERROR --><p class="alert alert-danger">{ERROR}</p><!-- ENDIF -->
+					<!-- EVENT ucp_friend_list_before -->
 					<div class="form-group">
-						<label class="control-label col-md-4" <!-- IF S_USERNAME_OPTIONS -->for="usernames"<!-- ENDIF -->>{L_YOUR_FRIENDS}:</label>
+						<label class="control-label col-md-4" <!-- IF S_USERNAME_OPTIONS -->for="usernames"<!-- ENDIF -->>{L_YOUR_FRIENDS}{L_COLON}</label>
 						<div class="col-md-8">
 							<!-- IF S_USERNAME_OPTIONS -->
 								<select name="usernames[]" id="usernames" multiple="multiple" size="5">{S_USERNAME_OPTIONS}</select>
@@ -21,8 +22,9 @@
 							<span class="help-block">{L_YOUR_FRIENDS_EXPLAIN}</span>
 						</div>
 					</div>
+					<!-- EVENT ucp_friend_list_after -->
 					<div class="form-group">
-						<label class="control-label col-md-4" for="add">{L_ADD_FRIENDS}:</label>
+						<label class="control-label col-md-4" for="add">{L_ADD_FRIENDS}{L_COLON}</label>
 						<div class="col-md-8">
 							<textarea name="add" id="add" rows="3" cols="30" class="form-control">{USERNAMES}</textarea>
 							<div class="spacer"></div>

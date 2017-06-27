@@ -11,7 +11,7 @@
 			<h3>{L_DEFINED_RULES}</h3>
 			<ol class="def-rules">
 				<!-- BEGIN rule -->
-					<li><div class="right-box"><input type="submit" name="delete_rule[{rule.RULE_ID}]" value="{L_DELETE_RULE}" class="btn btn-danger" /></div><strong>{L_IF}</strong> {rule.CHECK} <em>{rule.RULE}</em> <!-- IF rule.STRING --><strong>{rule.STRING}</strong> | <!-- ENDIF -->{rule.ACTION}<!-- IF rule.FOLDER -->: {rule.FOLDER}<!-- ENDIF --><div class="clearfix"></div></li>
+					<li><div class="right-box"><input type="submit" name="delete_rule[{rule.RULE_ID}]" value="{L_DELETE_RULE}" class="btn btn-danger" /></div><strong>{L_IF}</strong> {rule.CHECK} <em>{rule.RULE}</em> <!-- IF rule.STRING --><strong>{rule.STRING}</strong> | <!-- ENDIF -->{rule.ACTION}<!-- IF rule.FOLDER -->{L_COLON} {rule.FOLDER}<!-- ENDIF --><div class="clearfix"></div></li>
 				<!-- BEGINELSE -->
 					<li><strong>{L_NO_RULES_DEFINED}</strong></li>
 				<!-- END rule -->
@@ -22,7 +22,7 @@
 				<div class="form-horizontal">
 					<!-- IF S_CHECK_DEFINED -->
 						<div class="form-group">
-							<label class="control-label col-md-4" <!-- IF S_CHECK_SELECT -->for="check_option"<!-- ENDIF -->>{L_IF}:</label>
+							<label class="control-label col-md-4" <!-- IF S_CHECK_SELECT -->for="check_option"<!-- ENDIF -->>{L_IF}{L_COLON}</label>
 							<div class="col-md-8">
 								<!-- IF S_CHECK_SELECT -->
 									<select name="check_option" id="check_option">{S_CHECK_OPTIONS}</select>
@@ -70,16 +70,18 @@
 										<!-- ENDIF -->
 									</div>
 								<!-- ELSE -->
-									<div class="col-md-8 col-md-offset-3"><strong>{COND_CURRENT}</strong></div>
-									<input type="hidden" name="rule_string" value="{CURRENT_STRING}" />
-									<input type="hidden" name="rule_user_id" value="{CURRENT_USER_ID}" />
-									<input type="hidden" name="rule_group_id" value="{CURRENT_GROUP_ID}" />
+									<div class="col-md-8 col-md-offset-3">
+										<strong>{COND_CURRENT}</strong>
+										<input type="hidden" name="rule_string" value="{CURRENT_STRING}" />
+										<input type="hidden" name="rule_user_id" value="{CURRENT_USER_ID}" />
+										<input type="hidden" name="rule_group_id" value="{CURRENT_GROUP_ID}" />
+									</div>
 								<!-- ENDIF -->
 							</div>
 						<!-- ENDIF -->
 						<input type="hidden" name="cond_option" value="{COND_OPTION}" />
 					<!-- ENDIF -->
-					
+
 					<!-- IF NONE_CONDITION --><input type="hidden" name="cond_option" value="none" /><!-- ENDIF -->
 					<!-- IF S_ACTION_DEFINED -->
 						<div class="form-group">
@@ -98,7 +100,7 @@
 				<div class="form-horizontal">
 					<!-- IF not S_MAX_FOLDER_ZERO -->
 						<div class="form-group">
-							<label class="control-label col-md-4" for="foldername">{L_ADD_FOLDER}:</label>
+							<label class="control-label col-md-4" for="foldername">{L_ADD_FOLDER}{L_COLON}</label>
 							<div class="col-md-8">
 								<!-- IF S_MAX_FOLDER_REACHED -->{L_MAX_FOLDER_REACHED}<!-- ELSE -->
 									<div class="input-group">
@@ -112,16 +114,16 @@
 						</div>
 						<!-- IF S_FOLDER_OPTIONS --><hr class="dashed" /><!-- ENDIF -->
 					<!-- ENDIF -->
-					
+
 					<!-- IF S_FOLDER_OPTIONS -->
 						<div class="form-group">
-							<label class="control-label col-md-4" for="rename_folder_id">{L_RENAME_FOLDER}:</label>
+							<label class="control-label col-md-4" for="rename_folder_id">{L_RENAME_FOLDER}{L_COLON}</label>
 							<div class="col-md-8">
 								<select name="rename_folder_id" id="rename_folder_id">{S_FOLDER_OPTIONS}</select>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-md-4" for="new_folder_name">{L_NEW_FOLDER_NAME}:</label>
+							<label class="control-label col-md-4" for="new_folder_name">{L_NEW_FOLDER_NAME}{L_COLON}</label>
 							<div class="col-md-8">
 								<div class="input-group">
 									<input type="text" class="form-control" name="new_folder_name" id="new_folder_name" maxlength="30" />
@@ -133,12 +135,12 @@
 						</div>
 						<hr class="dashed" />
 						<div class="form-group">
-							<label class="control-label col-md-4" for="remove_folder_id">{L_REMOVE_FOLDER}:</label>
+							<label class="control-label col-md-4" for="remove_folder_id">{L_REMOVE_FOLDER}{L_COLON}</label>
 							<div class="col-md-8">
 								<select name="remove_folder_id" id="remove_folder_id">{S_FOLDER_OPTIONS}</select>
 							</div>
 							<div class="col-md-8 col-md-offset-4">
-								<div class="radio"><label for="remove_action1"><input type="radio" name="remove_action" id="remove_action1" value="1" checked="checked" />{L_MOVE_DELETED_MESSAGES_TO}:</label></div>
+								<div class="radio"><label for="remove_action1"><input type="radio" name="remove_action" id="remove_action1" value="1" checked="checked" />{L_MOVE_DELETED_MESSAGES_TO}{L_COLON}</label></div>
 								<select name="move_to">{S_TO_FOLDER_OPTIONS}</select>
 							</div>
 							<div class="col-md-8 col-md-offset-4">
@@ -153,7 +155,7 @@
 					<!-- ENDIF -->
 					<hr class="dashed" />
 					<div class="form-group">
-						<label class="control-label col-md-4" for="full_action1">{L_IF_FOLDER_FULL}:</label>
+						<label class="control-label col-md-4" for="full_action1">{L_IF_FOLDER_FULL}{L_COLON}</label>
 						<div class="col-md-8">
 							<div class="radio"><label for="full_action1"><input type="radio" name="full_action" id="full_action1" value="1"{S_DELETE_CHECKED} /> {L_DELETE_OLDEST_MESSAGES}</label></div>
 						</div>
@@ -166,7 +168,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-md-4">{L_DEFAULT_ACTION}:</label>
+						<label class="control-label col-md-4">{L_DEFAULT_ACTION}{L_COLON}</label>
 						<div class="col-md-8">
 							<p class="form-control-static">{DEFAULT_ACTION}<span class="help-block">{L_DEFAULT_ACTION_EXPLAIN}</span></p>
 						</div>
